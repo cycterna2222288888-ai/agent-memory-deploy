@@ -8,10 +8,10 @@ the name is used only to identify the software. No Metronix logo is used.
 | Path | What it is |
 |------|------------|
 | `landing/index.html` | One-page site. Static, no frameworks, no external requests. |
+| `landing/demo.gif`, `landing/demo.mp4` | 68-second terminal demo of a clean-machine install, cross-client recall and local storage. |
 
 ## Placeholders to fill before publishing the page
 
-- The demo video box, marked `PLACEHOLDER: 2-minute demo video`.
 - `[Your name / company]` in the footer.
 
 Live: https://cycterna2222288888-ai.github.io/agent-memory-deploy/ (GitHub Pages, deployed from `landing/` by `.github/workflows/pages.yml`).

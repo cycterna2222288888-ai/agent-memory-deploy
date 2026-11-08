@@ -54,9 +54,9 @@ p, li { color: var(--fg); }
 .cta:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
 ul, ol { padding-left: 1.2em; }
 li { margin: 6px 0; }
-.video { aspect-ratio: 16 / 9; background: var(--card); border: 2px dashed var(--line);
-  border-radius: 12px; display: grid; place-items: center; text-align: center;
-  color: var(--muted); padding: 16px; margin: 24px 0 0; }
+.demo { margin: 24px 0 0; }
+.demo img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
+.demo figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
 .steps { counter-reset: s; list-style: none; padding: 0; }
 .steps li { counter-increment: s; position: relative; padding-left: 44px; margin: 16px 0; }
 .steps li::before { content: counter(s); position: absolute; left: 0; top: 0;
@@ -84,12 +84,11 @@ a { color: var(--accent); }
   <p class="lead">Your agents remember decisions, preferences and project facts across sessions, and the memory never sits in someone else's SaaS. I deploy and support the open-source Metronix Memory server for teams that use Claude, Cursor or their own agents.</p>
   <a class="cta" href="mailto:cycterna2222288888@gmail.com?subject=Private%20agent%20memory%2C%2048h">Email me to book a 20-minute call</a>
 
-  <!-- PLACEHOLDER: 2-minute demo video. Replace this div with a lazy-loaded embed, e.g.
-       <iframe loading="lazy" src="..." title="2-minute demo" allowfullscreen></iframe>
-       or <video controls preload="none" poster="...">. Keep the 16:9 box. -->
-  <div class="video" role="img" aria-label="Demo video placeholder">
-    <div><strong>[ 2-minute demo video goes here ]</strong><br>An agent stores a fact, the server restarts, the agent recalls it.</div>
-  </div>
+  <figure class="demo">
+    <img src="demo.gif" width="1079" height="739" loading="lazy" decoding="async"
+         alt="Terminal demo: one command installs the memory server and passes an end-to-end test; a fact stored from the Cursor config is recalled from the VS Code config; the data sits in local Docker volumes.">
+    <figcaption>68-second terminal demo, recorded on a clean machine (33 minutes of downloads cut). <a href="demo.mp4">MP4 version</a>.</figcaption>
+  </figure>
 </header>
 
 <section aria-labelledby="get">
