@@ -10,9 +10,14 @@
 <meta property="og:url" content="https://deploy.mtrnix.com/">
 <meta property="og:title" content="Private AI agent memory on your own servers in 48 hours">
 <meta property="og:description" content="Self-hosted memory for Claude, Cursor, VS Code and Hermes agents. Deployment $4,000 fixed, support $900/month.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://deploy.mtrnix.com/demo-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow">
 <meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,142 +36,274 @@
 </script>
 <style>
 :root {
-  --bg: #ffffff; --fg: #16181d; --muted: #555b66; --line: #e3e5e9;
-  --card: #f6f7f9; --accent: #1f5eff; --accent-fg: #ffffff;
+  --bg: #ffffff; --bg-alt: #f5f7fa; --fg: #0f172a; --muted: #475569; --line: #e2e8f0;
+  --card: #ffffff; --accent: #1d4ed8; --accent-fg: #ffffff; --accent-soft: #eef3ff;
+  --note-bg: #fff8e6; --note-line: #f0d48a; --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
+  --section: 56px; --radius: 14px;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #0f1115; --fg: #e9ebef; --muted: #a3a9b4; --line: #262a31;
-          --card: #171a20; --accent: #6b93ff; --accent-fg: #0f1115; }
+  :root {
+    --bg: #0b0e14; --bg-alt: #10141c; --fg: #e8ecf3; --muted: #a3adbd; --line: #222a36;
+    --card: #131924; --accent: #7aa2ff; --accent-fg: #0b0e14; --accent-soft: #17213a;
+    --note-bg: #1d1a10; --note-line: #5c4b1c; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
 }
+@media (min-width: 720px) { :root { --section: 80px; } }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--fg);
-  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-main { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
-header { padding: 48px 0 24px; }
-h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 12px; letter-spacing: -0.01em; }
-h2 { font-size: 1.3rem; margin: 48px 0 12px; }
-h3 { font-size: 1.05rem; margin: 20px 0 4px; }
-p, li { color: var(--fg); }
-.lead { color: var(--muted); font-size: 1.05rem; margin: 0 0 24px; }
-.cta { display: inline-block; background: var(--accent); color: var(--accent-fg);
-  padding: 14px 22px; border-radius: 10px; font-weight: 600; text-decoration: none; min-height: 48px; }
-.cta:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
-ul, ol { padding-left: 1.2em; }
-li { margin: 6px 0; }
-.demo { margin: 24px 0 0; }
-.demo img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
-.demo figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
+  font: 17px/1.6 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+.col { max-width: 680px; margin: 0 auto; }
+section { padding: var(--section) 0; }
+section.alt { background: var(--bg-alt); }
+.label { font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 8px; }
+h1 { font-size: clamp(2rem, 5.2vw, 3rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; margin: 0 0 20px; }
+h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); line-height: 1.2; letter-spacing: -0.015em; font-weight: 700; margin: 0 0 20px; }
+h3 { font-size: 1.1rem; margin: 0 0 6px; }
+ul, ol { padding-left: 1.2em; margin: 0; }
+li { margin: 10px 0; }
+
+/* Hero */
+.hero { padding: 64px 0 var(--section); }
+@media (min-width: 720px) { .hero { padding-top: 112px; } }
+.lead { color: var(--muted); font-size: 1.12rem; margin: 0 0 16px; }
+.cred { font-size: .95rem; color: var(--muted); margin: 0 0 28px; padding-left: 12px; border-left: 3px solid var(--accent); }
+.cta { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 24px;
+  background: var(--accent); color: var(--accent-fg); border-radius: 12px; font-weight: 600; text-decoration: none;
+  box-shadow: var(--shadow); }
+.cta:hover { filter: brightness(1.06); }
+.cta:focus-visible, .play:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
+.cta-row { text-align: center; margin-top: 40px; }
+
+/* Demo */
+.demo { margin: 48px 0 0; }
+.player { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+  box-shadow: var(--shadow); background: #272822; aspect-ratio: 1078 / 738; }
+.player video { display: block; width: 100%; height: 100%; }
+.play { position: absolute; inset: 0; margin: auto; width: 88px; height: 88px; border-radius: 50%; border: 0;
+  background: rgba(29,78,216,.92); color: #fff; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+.play[hidden] { display: none; }
+.play svg { width: 34px; height: 34px; margin-left: 5px; }
+.play:hover { background: rgba(29,78,216,1); }
+.demo figcaption { color: var(--muted); font-size: .9rem; margin-top: 12px; text-align: center; }
+
+/* Proof strip */
+.proof { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .proof { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+.proof li { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 16px; }
+.proof .num { display: block; font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.proof .lbl { display: block; color: var(--muted); font-size: .85rem; margin-top: 6px; line-height: 1.4; }
+
+/* Steps */
 .steps { counter-reset: s; list-style: none; padding: 0; }
-.steps li { counter-increment: s; position: relative; padding-left: 44px; margin: 16px 0; }
-.steps li::before { content: counter(s); position: absolute; left: 0; top: 0;
-  width: 30px; height: 30px; border-radius: 50%; background: var(--card);
-  border: 1px solid var(--line); display: grid; place-items: center; font-weight: 600; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
-th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { color: var(--muted); font-weight: 600; }
-td.price { white-space: nowrap; font-weight: 600; }
-.note { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
-details { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.steps li { counter-increment: s; position: relative; padding-left: 52px; margin: 22px 0; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; }
+
+/* Pricing */
+.cards { display: grid; gap: 16px; margin-top: 8px; }
+@media (min-width: 860px) { .cards { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+.card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 28px 22px 24px; box-shadow: var(--shadow); }
+.card.featured { border: 2px solid var(--accent); }
+.tag { position: absolute; top: -12px; left: 22px; background: var(--accent); color: var(--accent-fg);
+  font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.price { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; margin: 6px 0 12px; }
+.card p { margin: 0; color: var(--muted); font-size: .97rem; }
+
+/* Data */
+.note { margin-top: 28px; background: var(--note-bg); border: 1px solid var(--note-line); border-radius: var(--radius); padding: 20px 22px; }
+.note p { margin: 0; }
+
+/* About */
+.about p { margin: 0 0 16px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px 22px; padding: 0; list-style: none; }
+.links li { margin: 0; }
+
+/* FAQ */
+details { border-bottom: 1px solid var(--line); padding: 16px 0; }
 summary { cursor: pointer; font-weight: 600; min-height: 32px; }
-footer { color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--line);
-  margin-top: 56px; padding-top: 16px; }
-a { color: var(--accent); }
-@media (min-width: 720px) { h1 { font-size: 2.4rem; } header { padding-top: 72px; } }
+details p { color: var(--muted); margin: 10px 0 0; }
+
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; padding: 24px 0 40px; }
+footer p { margin: 0; }
 </style>
 </head>
 <body>
 <main>
 
-<header>
-  <h1>Private memory for your AI agents, running on your own servers in 48&nbsp;hours.</h1>
-  <p class="lead">Your agents remember decisions, preferences and project facts across sessions, and the memory never sits in someone else's SaaS. I deploy and support the open-source Metronix Memory server for teams that use Claude, Cursor or their own agents.</p>
-  <a class="cta" href="mailto:cycterna2222288888@gmail.com?subject=Private%20agent%20memory%2C%2048h">Email me to book a 20-minute call</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="col">
+      <h1>Private memory for your AI agents, running on your own servers in 48&nbsp;hours.</h1>
+      <p class="lead">Your agents remember decisions, preferences and project facts across sessions, and the memory never sits in someone else's SaaS. I deploy and support the open-source Metronix Memory server for teams that use Claude, Cursor or their own agents.</p>
+      <p class="cred">Built by a core contributor to Metronix Memory: <a href="https://github.com/mtrnix/metronix-memory/pulls?q=is%3Apr+author%3Acycterna2222288888-ai+is%3Amerged">40 merged PRs</a>, the one-command installer and the benchmark suite.</p>
+      <a class="cta" href="mailto:cycterna2222288888@gmail.com?subject=Private%20agent%20memory%2C%2048h">Email me to book a 20-minute call</a>
+    </div>
 
-  <figure class="demo">
-    <img src="demo.gif" width="1079" height="739" loading="lazy" decoding="async"
-         alt="Terminal demo: one command installs the memory server and passes an end-to-end test; a fact stored from the Cursor config is recalled from the VS Code config; the data sits in local Docker volumes.">
-    <figcaption>68-second terminal demo, recorded on a clean machine (33 minutes of downloads cut). <a href="demo.mp4">MP4 version</a>.</figcaption>
-  </figure>
+    <figure class="demo">
+      <div class="player">
+        <video id="demo-video" controls preload="none" playsinline poster="demo-poster.jpg" width="1078" height="738"
+               aria-label="Terminal demo: one command installs the memory server and passes an end-to-end test; a fact stored from the Cursor config is recalled from the VS Code config; the data sits in local Docker volumes.">
+          <source src="demo.mp4" type="video/mp4">
+          <a href="demo.mp4">Download the demo video (MP4)</a>
+        </video>
+        <button class="play" id="demo-play" type="button" aria-label="Play the 68-second demo" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>
+        </button>
+      </div>
+      <figcaption>68-second terminal demo, recorded on a clean machine (33 minutes of downloads cut). <a href="demo.mp4">MP4 version</a>.</figcaption>
+    </figure>
+
+    <ul class="proof">
+      <li><span class="num">1 command</span><span class="lbl">./scripts/quickstart.sh, from a clean machine to a tested memory server</span></li>
+      <li><span class="num">~1 min</span><span class="lbl">clean install, images cached</span></li>
+      <li><span class="num">e2e memory test</span><span class="lbl">runs in CI on every PR</span></li>
+      <li><span class="num">Apache-2.0</span><span class="lbl"><a href="https://github.com/mtrnix/metronix-memory">open-source core</a></span></li>
+    </ul>
+  </div>
 </header>
 
-<section aria-labelledby="get">
-  <h2 id="get">What your team has after 48 hours</h2>
-  <ul>
-    <li>A running memory server on your machine or VPC: PostgreSQL, Qdrant, Neo4j and Redis in Docker, with embeddings computed by a local model.</li>
-    <li>A personal API key for each agent or person, so every agent's memory is separated and access can be revoked one key at a time.</li>
-    <li>Claude Desktop, Cursor, VS Code and Hermes connected, with the config files committed to your repo or handed to each user.</li>
-    <li>Proof it works: an end-to-end test that stores a fact, restarts the server and recalls the same fact, run on your hardware.</li>
-    <li>Health and readiness endpoints wired into your monitoring, so a failed migration or a missing model shows up as an alert.</li>
-    <li>Nightly backups of all data volumes, with one restore tested before handover.</li>
-    <li>A short runbook: start, stop, upgrade, rotate keys, restore from backup. Plus a 60-minute handover call.</li>
-  </ul>
+<section class="alt" aria-labelledby="get">
+  <div class="wrap"><div class="col">
+    <p class="label">Deliverables</p>
+    <h2 id="get">What your team has after 48 hours</h2>
+    <ul>
+      <li>A running memory server on your machine or VPC: PostgreSQL, Qdrant, Neo4j and Redis in Docker, with embeddings computed by a local model.</li>
+      <li>A personal API key for each agent or person, so every agent's memory is separated and access can be revoked one key at a time.</li>
+      <li>Claude Desktop, Cursor, VS Code and Hermes connected, with the config files committed to your repo or handed to each user.</li>
+      <li>Proof it works: an end-to-end test that stores a fact, restarts the server and recalls the same fact, run on your hardware.</li>
+      <li>Health and readiness endpoints wired into your monitoring, so a failed migration or a missing model shows up as an alert.</li>
+      <li>Nightly backups of all data volumes, with one restore tested before handover.</li>
+      <li>A short runbook: start, stop, upgrade, rotate keys, restore from backup. Plus a 60-minute handover call.</li>
+    </ul>
+  </div></div>
 </section>
 
 <section aria-labelledby="how">
-  <h2 id="how">How it works</h2>
-  <ol class="steps">
-    <li><strong>30-minute scoping call.</strong> We agree on the host, which clients and agents to connect, and how your team signs in. You give me SSH or a screen-share to a Linux server with Docker (8 GB RAM, 4 CPUs, 50 GB disk).</li>
-    <li><strong>Deployment.</strong> I install and harden the stack, issue the keys, connect your clients and run the end-to-end test. The 48 hours start when I have access to that server.</li>
-    <li><strong>Handover.</strong> You get the runbook, the configs and a recorded walkthrough. From here you run it yourself or keep me on support.</li>
-  </ol>
+  <div class="wrap"><div class="col">
+    <p class="label">Process</p>
+    <h2 id="how">How it works</h2>
+    <ol class="steps">
+      <li><strong>30-minute scoping call.</strong> We agree on the host, which clients and agents to connect, and how your team signs in. You give me SSH or a screen-share to a Linux server with Docker (8 GB RAM, 4 CPUs, 50 GB disk).</li>
+      <li><strong>Deployment.</strong> I install and harden the stack, issue the keys, connect your clients and run the end-to-end test. The 48 hours start when I have access to that server.</li>
+      <li><strong>Handover.</strong> You get the runbook, the configs and a recorded walkthrough. From here you run it yourself or keep me on support.</li>
+    </ol>
+  </div></div>
 </section>
 
-<section aria-labelledby="pricing">
-  <h2 id="pricing">Pricing</h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th scope="col">Service</th><th scope="col">What it covers</th><th scope="col">Price</th></tr></thead>
-      <tbody>
-        <tr><td>Deployment</td><td>Everything in "What your team has after 48 hours". Fixed scope, fixed price.</td><td class="price">$4,000 fixed</td></tr>
-        <tr><td>Support</td><td>Upgrades to new releases, a monthly health check, key rotation, help with new clients and agents, and a reply within one business day if something breaks. Cancel any month.</td><td class="price">$900 / month</td></tr>
-        <tr><td>Memory tuning (optional)</td><td>Import your existing docs and notes, tune retrieval on your own questions, and measure recall before and after.</td><td class="price">$3,000</td></tr>
-      </tbody>
-    </table>
+<section class="alt" aria-labelledby="pricing">
+  <div class="wrap">
+    <div class="col">
+      <p class="label">Fixed prices</p>
+      <h2 id="pricing">Pricing</h2>
+    </div>
+    <div class="cards">
+      <article class="card featured">
+        <span class="tag">Start here</span>
+        <h3>Deployment</h3>
+        <p class="price">$4,000 fixed</p>
+        <p>Everything in "What your team has after 48 hours". Fixed scope, fixed price.</p>
+      </article>
+      <article class="card">
+        <h3>Support</h3>
+        <p class="price">$900 / month</p>
+        <p>Upgrades to new releases, a monthly health check, key rotation, help with new clients and agents, and a reply within one business day if something breaks. Cancel any month.</p>
+      </article>
+      <article class="card">
+        <h3>Memory tuning (optional)</h3>
+        <p class="price">$3,000</p>
+        <p>Import your existing docs and notes, tune retrieval on your own questions, and measure recall before and after.</p>
+      </article>
+    </div>
+    <div class="cta-row">
+      <a class="cta" href="mailto:cycterna2222288888@gmail.com?subject=Private%20agent%20memory%2C%2048h">Email me to book a 20-minute call</a>
+    </div>
   </div>
 </section>
 
 <section aria-labelledby="stays">
-  <h2 id="stays">What stays on your servers</h2>
-  <p>Everything the memory layer stores or computes:</p>
-  <ul>
-    <li>Every memory record: facts, preferences, pinned instructions.</li>
-    <li>Embeddings and the search index, produced by a local model. No embedding API is called.</li>
-    <li>The knowledge graph and anything imported from your documents.</li>
-    <li>API keys, users, audit and access logs, backups.</li>
-  </ul>
-  <p class="note">The memory server sends no data to me or to the open-source project. Your AI client is a separate matter. Claude Desktop, Cursor and similar tools send their prompts to their own model provider, and that includes any memories they recall. If nothing may leave your network, connect an agent that runs on a local model; then nothing does.</p>
+  <div class="wrap"><div class="col">
+    <p class="label">Your data</p>
+    <h2 id="stays">What stays on your servers</h2>
+    <p>Everything the memory layer stores or computes:</p>
+    <ul>
+      <li>Every memory record: facts, preferences, pinned instructions.</li>
+      <li>Embeddings and the search index, produced by a local model. No embedding API is called.</li>
+      <li>The knowledge graph and anything imported from your documents.</li>
+      <li>API keys, users, audit and access logs, backups.</li>
+    </ul>
+    <div class="note">
+      <p>The memory server sends no data to me or to the open-source project. Your AI client is a separate matter. Claude Desktop, Cursor and similar tools send their prompts to their own model provider, and that includes any memories they recall. If nothing may leave your network, connect an agent that runs on a local model; then nothing does.</p>
+    </div>
+  </div></div>
+</section>
+
+<section class="alt about" aria-labelledby="who">
+  <div class="wrap"><div class="col">
+    <p class="label">About</p>
+    <h2 id="who">Who you're working with</h2>
+    <h3>Peter</h3>
+    <p>I have contributed to Metronix Memory since August 2026. In the project I own the one-command installer with its end-to-end memory test, and the benchmark suite, including the MuSiQue multi-hop report.</p>
+    <ul class="links">
+      <li><a href="https://github.com/cycterna2222288888-ai">GitHub profile</a></li>
+      <li><a href="https://github.com/mtrnix/metronix-memory/pulls?q=is%3Apr+author%3Acycterna2222288888-ai+is%3Amerged">Merged pull requests</a></li>
+      <li><a href="https://github.com/mtrnix/metronix-memory/blob/main/benchmarks/musique/REPORT.md">MuSiQue benchmark report</a></li>
+    </ul>
+  </div></div>
 </section>
 
 <section aria-labelledby="faq">
-  <h2 id="faq">FAQ</h2>
-  <details>
-    <summary>Where does our data live?</summary>
-    <p>On the server you choose: on-premises, or in your own cloud account and region. I work inside your environment and keep no copy. If you need a specific region for residency rules, pick the host there and the data stays there.</p>
-  </details>
-  <details>
-    <summary>Which clients are supported?</summary>
-    <p>Claude Desktop, Cursor, VS Code and Hermes are connected during deployment. Anything else that speaks MCP over HTTP works the same way, and there are REST and Python, JavaScript and Go SDKs for your own agents.</p>
-  </details>
-  <details>
-    <summary>What happens after the 48 hours?</summary>
-    <p>You own the deployment. You can run it yourselves with the runbook, or keep me on support for $900 a month for upgrades, monitoring checks and help when something breaks. Without support, nothing stops working. The software is open source, so there is no license fee and no lock-in to me.</p>
-  </details>
-  <details>
-    <summary>Are you the Metronix project?</summary>
-    <p>No. I am an independent implementation partner. Metronix Memory is open-source software under the Apache-2.0 license, maintained by its own authors at github.com/mtrnix/metronix-memory.</p>
-  </details>
-  <details>
-    <summary>What do you need from us to start?</summary>
-    <p>A Linux server with Docker (8 GB RAM, 4 CPUs, 50 GB disk), access for the deployment window, and a list of the people and agents that should get keys.</p>
-  </details>
+  <div class="wrap"><div class="col">
+    <p class="label">Questions</p>
+    <h2 id="faq">FAQ</h2>
+    <details>
+      <summary>Where does our data live?</summary>
+      <p>On the server you choose: on-premises, or in your own cloud account and region. I work inside your environment and keep no copy. If you need a specific region for residency rules, pick the host there and the data stays there.</p>
+    </details>
+    <details>
+      <summary>Which clients are supported?</summary>
+      <p>Claude Desktop, Cursor, VS Code and Hermes are connected during deployment. Anything else that speaks MCP over HTTP works the same way, and there are REST and Python, JavaScript and Go SDKs for your own agents.</p>
+    </details>
+    <details>
+      <summary>What happens after the 48 hours?</summary>
+      <p>You own the deployment. You can run it yourselves with the runbook, or keep me on support for $900 a month for upgrades, monitoring checks and help when something breaks. Without support, nothing stops working. The software is open source, so there is no license fee and no lock-in to me.</p>
+    </details>
+    <details>
+      <summary>Are you the Metronix project?</summary>
+      <p>No. I am an independent implementation partner. Metronix Memory is open-source software under the Apache-2.0 license, maintained by its own authors at github.com/mtrnix/metronix-memory.</p>
+    </details>
+    <details>
+      <summary>What do you need from us to start?</summary>
+      <p>A Linux server with Docker (8 GB RAM, 4 CPUs, 50 GB disk), access for the deployment window, and a list of the people and agents that should get keys.</p>
+    </details>
+    <div class="cta-row">
+      <a class="cta" href="mailto:cycterna2222288888@gmail.com?subject=Private%20agent%20memory%2C%2048h">Email me to book a 20-minute call</a>
+    </div>
+  </div></div>
 </section>
 
 <footer>
-  <p>Peter. Independent implementation partner. Hosted on mtrnix.com with the maintainers' permission.</p>
+  <div class="wrap"><div class="col">
+    <p>Peter. Independent implementation partner. Hosted on mtrnix.com with the maintainers' permission.</p>
+  </div></div>
 </footer>
 
 </main>
+<script>
+// Big play button over the poster; native controls still work without JS.
+(function () {
+  var v = document.getElementById("demo-video"), b = document.getElementById("demo-play");
+  if (!v || !b) return;
+  b.hidden = false;
+  b.addEventListener("click", function () { b.hidden = true; v.play(); v.focus(); });
+  v.addEventListener("play", function () { b.hidden = true; });
+})();
+</script>
 </body>
 </html>
