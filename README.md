@@ -11,9 +11,8 @@ the name is used only to identify the software. No Metronix logo is used.
 
 ## Placeholders to fill before publishing the page
 
-- `https://BOOKING_URL`: the booking link, used by the single CTA button.
-- `https://example.com/`: the real domain, in the canonical, `og:url` and JSON-LD tags.
 - The demo video box, marked `PLACEHOLDER: 2-minute demo video`.
 - `[Your name / company]` in the footer.
 
-Preview locally: `open landing/index.html`. Deploy by copying `landing/` to any static host.
+Live: https://cycterna2222288888-ai.github.io/agent-memory-deploy/ (GitHub Pages, deployed from `landing/` by `.github/workflows/pages.yml`).
+Preview locally: `open landing/index.html`.
